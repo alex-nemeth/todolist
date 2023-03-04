@@ -71,9 +71,13 @@ function renderProjectlist() {
         projectCard.classList.add("project-card");
         listOfProjects.appendChild(projectCard);
         projectCard.innerHTML = `
-        <div class="project-card" id="${i}">
+        <div class="project-card" value="${i}">
         <p class="project-title">${projectList[i].title}</p>
     </div>`;
+        projectCard.addEventListener("click", (e) => {
+            renderTasklist(projectList[i]);
+            currentProject = i;
+        });
     }
 }
 
@@ -145,9 +149,12 @@ submitTaskBtn.addEventListener("click", (e) => {
     const status = document.querySelector("#task-status").value;
     const colorCode = document.querySelector("#task-color").value;
     e.preventDefault();
-    defaultProject.tasks.push(new Task(title, description, status, colorCode));
-    renderTasklist(defaultProject);
+    projectList[currentProject].tasks.push(
+        new Task(title, description, status, colorCode)
+    );
+    renderTasklist(projectList[currentProject]);
 });
 
 //webapp start
 initRender();
+let currentProject = 0;
