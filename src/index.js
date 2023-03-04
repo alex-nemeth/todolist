@@ -1,8 +1,24 @@
 class Task {
-    constructor(title, description, colorCode) {
+    constructor(title, description, status, colorCode) {
         this.title = title;
         this.description = description;
+        this.status = status;
         this.colorCode = colorCode;
+    }
+
+    getTitle() {
+        return this.title;
+    }
+    getDescription() {
+        return this.description;
+    }
+
+    getStatus() {
+        return this.status;
+    }
+
+    getColorCode() {
+        return this.colorCode;
     }
 }
 
@@ -18,6 +34,14 @@ class Project {
         this.tasks.push(new Task(title, description, colorCode));
     }
 
+    addTask(task) {
+        this.tasks.push(task);
+    }
+
+    length() {
+        return this.tasks.length;
+    }
+
     deleteTask(index) {
         this.tasks.splice(index, 1);
     }
@@ -31,10 +55,15 @@ let defaultProject = new Project(
 );
 projectList.push(defaultProject);
 
-let defaultTask = new Task("Default Task", "This is a default task", "red");
-defaultProject.tasks.push(defaultTask);
+let defaultTask = new Task(
+    "Default Task",
+    "This is a default task",
+    "In Progress",
+    "red"
+);
+defaultProject.addTask(defaultTask);
 
-function renderProjectlist(projectList) {
+function renderProjectlist() {
     const listOfProjects = document.querySelector(".project-list");
     const projectCard = document.createElement("div");
     projectCard.classList.add("project-card");
@@ -42,23 +71,36 @@ function renderProjectlist(projectList) {
     for (let i = 0; i < projectList.length; i++) {
         projectCard.innerHTML = `
         <div class="project-card">
-        <p class="project-title" onclick="">${projectList[i].title}</p>
+        <p class="project-title">${projectList[i].title}</p>
     </div>`;
     }
 }
 
-function renderTasklist(projectList) {
-    const toDoList = document.querySelector(".to-do");
-    for (let i = 0; i < defaultProject.tasks.length; i++) {
-        toDoList.innerHTML = `<p>${defaultProject.tasks[i].title}</p>
-        <p>${defaultProject.tasks[i].description}</p>
-        <p>${defaultProject.tasks[i].colorCode}</p>`;
+function renderTasklist(project) {
+    const toDoTasks = document.querySelector(".to-do");
+    const inProgressTasks = document.querySelector(".in-progress");
+    const completedTasks = document.querySelector(".completed");
+    toDoTasks.innerHTML = "";
+    inProgressTasks.innerHTML = "";
+    completedTasks.innerHTML = "";
+    for (let i = 0; i < project.length(); i++) {
+        const taskToAdd = `<div class="task-card"><p>${project.tasks[i].title}</p>
+        <p>${project.tasks[i].description}</p>
+        <p>${project.tasks[i].colorCode}</p></div>`;
+
+        if (project.tasks[i].getStatus() === "To Do") {
+            toDoTasks.innerHTML += taskToAdd;
+        } else if (project.tasks[i].getStatus() === "In Progress") {
+            inProgressTasks.innerHTML += taskToAdd;
+        } else if (project.tasks[i].getStatus() === "Completed") {
+            completedTasks.innerHTML += taskToAdd;
+        }
     }
 }
 
 function initRender() {
     renderProjectlist(projectList);
-    renderTasklist(projectList);
+    renderTasklist(defaultProject);
 }
 
 const modal = document.querySelector(".modal");
@@ -66,7 +108,6 @@ const closeBtn = document.querySelector(".close");
 closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
-
 const addProjectBtn = document.querySelector(".add-project");
 addProjectBtn.addEventListener("click", () => {
     modal.style.display = "block";
@@ -79,8 +120,9 @@ submitProjectBtn.addEventListener("click", (e) => {
     const colorCode = document.querySelector("#project-color").value;
     e.preventDefault();
     projectList.push(new Project(title, description, colorCode));
-    console.log(projectList.length);
-    renderProjectlist(projectList);
+    renderProjectlist();
+    renderTasklist(projectList[projectList.length - 1]);
 });
 
+//webapp start
 initRender();
