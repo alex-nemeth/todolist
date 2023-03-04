@@ -7,8 +7,8 @@ class Task {
 }
 
 class Project {
-    constructor(name, description, colorCode) {
-        this.name = name;
+    constructor(title, description, colorCode) {
+        this.title = title;
         this.description = description;
         this.tasks = [];
         this.colorCode = colorCode;
@@ -23,46 +23,45 @@ class Project {
     }
 }
 
-class ProjectList {
-    constructor() {
-        this.projects = [];
-    }
+let projectList = [];
+let defaultProject = new Project(
+    "Default Project",
+    "This is a default project",
+    "red"
+);
+projectList.push(defaultProject);
 
-    addProject() {
-        const projectName = document.querySelector("#project-name").value;
-        const projectDescription = document.querySelector(
-            "#project-description"
-        ).value;
-        const projectColor = document.querySelector("#project-color").value;
+let defaultTask = new Task("Default Task", "This is a default task", "red");
+defaultProject.tasks.push(defaultTask);
 
-        this.projects.push(
-            new Project(projectName, projectDescription, projectColor)
-        );
-        render();
-    }
-
-    render() {
-        const projectList = document.querySelector(".project-list");
-        projectList.innerHTML = "";
-        this.projects.forEach((project) => {
-            const projectCard = document.createElement("div");
-            projectCard.classList.add("project-card");
-            projectCard.innerHTML = `
-            <div class="project-card-header">
-            <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24">
-            <title>circle-medium</title>
-            <pathd="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"/>           
-            <p class="project">${project.name}</p>
-            </div>`;
-        });
+function renderProjectlist(projectList) {
+    const listOfProjects = document.querySelector(".project-list");
+    const projectCard = document.createElement("div");
+    projectCard.classList.add("project-card");
+    listOfProjects.appendChild(projectCard);
+    for (let i = 0; i < projectList.length; i++) {
+        projectCard.innerHTML = `
+        <div class="project-card">
+        <p class="project-title" onclick="">${projectList[i].title}</p>
+    </div>`;
     }
 }
 
-let projectList = new ProjectList();
+function renderTasklist(projectList) {
+    const toDoList = document.querySelector(".to-do");
+    for (let i = 0; i < defaultProject.tasks.length; i++) {
+        toDoList.innerHTML = `<p>${defaultProject.tasks[i].title}</p>
+        <p>${defaultProject.tasks[i].description}</p>
+        <p>${defaultProject.tasks[i].colorCode}</p>`;
+    }
+}
 
-const modal = document.getElementById("myModal");
+function initRender() {
+    renderProjectlist(projectList);
+    renderTasklist(projectList);
+}
+
+const modal = document.getElementById("modal");
 const closeBtn = document.querySelector(".close");
 closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
@@ -73,8 +72,10 @@ addProjectBtn.addEventListener("click", () => {
     modal.style.display = "block";
 });
 
-const submitProjectBtn = document.querySelector(".submit-project");
+const submitProjectBtn = document.querySelector(".project-submit");
 submitProjectBtn.addEventListener("click", (e) => {
     e.preventDefault();
     projectList.addProject();
 });
+
+initRender();

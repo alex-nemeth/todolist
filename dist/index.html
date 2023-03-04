@@ -8,8 +8,8 @@
         <title>Tudulu</title>
     </head>
     <body>
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
+        <!--Project Modal-->
+        <div id="project-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h1>New project</h1>
@@ -23,15 +23,14 @@
                         <input class="project-description" type="text" />
                     </div>
                     <div class="color-input">
-                        <label for="Colors">Color(blue)</label>
-                        <label class="orange" for="orange"></label>
-                        <input class="project-color"" type="radio" id="blue"
-                        name="color" value="blue" />
+                        <label for="Colors">Color</label>
+                        <input class="project-color" type="text" />
                     </div>
-                    <button class="submit-project"></button>
+                    <button class="project-submit"></button>
                 </form>
             </div>
         </div>
+        <!--Task Modal TBD-->
         <div class="header">
             <h1>Tudulu</h1>
             <h3>Welcome back, Alex.</h3>
@@ -39,20 +38,7 @@
         <div class="content">
             <div class="sidebar">
                 <h4>Projects</h4>
-                <div class="project-list">
-                    <div class="project-card">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                        >
-                            <title>circle-medium</title>
-                            <path
-                                d="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8Z"
-                            />
-                        </svg>
-                        <p class="project" onclick="">My First Project</p>
-                    </div>
-                </div>
+                <div class="project-list"></div>
                 <button class="add-project">New Project</button>
             </div>
 
