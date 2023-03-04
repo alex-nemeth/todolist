@@ -8,15 +8,39 @@
         <title>Tudulu</title>
     </head>
     <body>
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>New project</h1>
+                <form id="new-project" action="">
+                    <div class="text-input">
+                        <label for="Title">Project title</label>
+                        <input id="project-name" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Description">Description</label>
+                        <input class="project-description" type="text" />
+                    </div>
+                    <div class="color-input">
+                        <label for="Colors">Color(blue)</label>
+                        <label class="orange" for="orange"></label>
+                        <input class="project-color"" type="radio" id="blue"
+                        name="color" value="blue" />
+                    </div>
+                    <button class="submit-project"></button>
+                </form>
+            </div>
+        </div>
         <div class="header">
             <h1>Tudulu</h1>
             <h3>Welcome back, Alex.</h3>
         </div>
         <div class="content">
             <div class="sidebar">
-                <div class="projectlist">
-                    <h4>Projects</h4>
-                    <div class="project">
+                <h4>Projects</h4>
+                <div class="project-list">
+                    <div class="project-card">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -29,10 +53,10 @@
                         <p class="project" onclick="">My First Project</p>
                     </div>
                 </div>
-                <button class="addproject">New Project</button>
+                <button class="add-project">New Project</button>
             </div>
 
-            <div class="currentproject">
+            <div class="current-project">
                 <div class="headings">
                     <h2>To-do</h2>
                     <h2>In Progress</h2>
