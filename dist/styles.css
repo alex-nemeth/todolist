@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(39, 39, 39);
+    color: white;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+svg {
+    width: 20px;
+    height: 20px;
+    color: greenyellow;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(19, 81, 36);
+}
+
+.project {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.headings {
+    display: flex;
+    justify-content: space-evenly;
+}
