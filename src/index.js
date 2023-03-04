@@ -13,10 +13,6 @@ class Task {
         return this.description;
     }
 
-    getStatus() {
-        return this.status;
-    }
-
     getColorCode() {
         return this.colorCode;
     }
@@ -30,7 +26,7 @@ class Project {
         this.colorCode = colorCode;
     }
 
-    addTask(title, description, colorCode) {
+    addTask(title, description, status, colorCode) {
         this.tasks.push(new Task(title, description, colorCode));
     }
 
@@ -88,11 +84,11 @@ function renderTasklist(project) {
         <p>${project.tasks[i].description}</p>
         <p>${project.tasks[i].colorCode}</p></div>`;
 
-        if (project.tasks[i].getStatus() === "To Do") {
+        if (project.tasks[i].status === "To Do") {
             toDoTasks.innerHTML += taskToAdd;
-        } else if (project.tasks[i].getStatus() === "In Progress") {
+        } else if (project.tasks[i].status === "In Progress") {
             inProgressTasks.innerHTML += taskToAdd;
-        } else if (project.tasks[i].getStatus() === "Completed") {
+        } else if (project.tasks[i].status === "Completed") {
             completedTasks.innerHTML += taskToAdd;
         }
     }
@@ -106,10 +102,16 @@ function initRender() {
 const projectModal = document.querySelector("#project-modal");
 const taskModal = document.querySelector("#task-modal");
 
-const closeBtn = document.querySelector(".close");
-closeBtn.addEventListener("click", () => {
+const projectCloseBtn = document.querySelector("#project-close");
+projectCloseBtn.addEventListener("click", () => {
     projectModal.style.display = "none";
 });
+
+const taskCloseBtn = document.querySelector("#task-close");
+taskCloseBtn.addEventListener("click", () => {
+    taskModal.style.display = "none";
+});
+
 const addProjectBtn = document.querySelector(".add-project");
 addProjectBtn.addEventListener("click", () => {
     projectModal.style.display = "block";
@@ -128,6 +130,17 @@ submitProjectBtn.addEventListener("click", (e) => {
     e.preventDefault();
     projectList.push(new Project(title, description, colorCode));
     renderProjectlist();
+    renderTasklist(projectList[projectList.length - 1]);
+});
+
+const submitTaskBtn = document.querySelector(".task-submit");
+submitTaskBtn.addEventListener("click", () => {
+    const title = document.querySelector("#task-title").value;
+    const description = document.querySelector("#task-description").value;
+    const status = document.querySelector("#task-status").value;
+    const colorCode = document.querySelector("#task-color").value;
+
+    projectList[0].addTask(title, description, status, colorCode);
     renderTasklist(projectList[projectList.length - 1]);
 });
 
