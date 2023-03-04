@@ -103,14 +103,21 @@ function initRender() {
     renderTasklist(defaultProject);
 }
 
-const modal = document.querySelector(".modal");
+const projectModal = document.querySelector("#project-modal");
+const taskModal = document.querySelector("#task-modal");
+
 const closeBtn = document.querySelector(".close");
 closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
+    projectModal.style.display = "none";
 });
 const addProjectBtn = document.querySelector(".add-project");
 addProjectBtn.addEventListener("click", () => {
-    modal.style.display = "block";
+    projectModal.style.display = "block";
+});
+
+const addTaskBtn = document.querySelector(".add-task");
+addTaskBtn.addEventListener("click", () => {
+    taskModal.style.display = "block";
 });
 
 const submitProjectBtn = document.querySelector(".project-submit");

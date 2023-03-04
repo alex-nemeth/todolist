@@ -31,6 +31,31 @@
             </div>
         </div>
         <!--Task Modal TBD-->
+        <div id="task-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>New task</h1>
+                <form id="new-task" action="">
+                    <div class="text-input">
+                        <label for="Title">Task title</label>
+                        <input id="task-title" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Description">Description</label>
+                        <input id="task-description" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Status">Status</label>
+                        <input id="task-status" type="text" />
+                    </div>
+                    <div class="color-input">
+                        <label for="Colors">Color</label>
+                        <input id="task-color" type="text" />
+                    </div>
+                    <button class="task-submit">Add task</button>
+                </form>
+            </div>
+        </div>
         <div class="header">
             <h1>Tudulu</h1>
             <h3>Welcome back, Alex.</h3>
@@ -52,6 +77,9 @@
                     <div class="to-do"></div>
                     <div class="in-progress"></div>
                     <div class="completed"></div>
+                </div>
+                <div class="add-task-container">
+                    <button class="add-task">+</button>
                 </div>
             </div>
         </div>
