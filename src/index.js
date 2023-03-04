@@ -61,7 +61,7 @@ function initRender() {
     renderTasklist(projectList);
 }
 
-const modal = document.getElementById("modal");
+const modal = document.querySelector(".modal");
 const closeBtn = document.querySelector(".close");
 closeBtn.addEventListener("click", () => {
     modal.style.display = "none";
@@ -74,8 +74,13 @@ addProjectBtn.addEventListener("click", () => {
 
 const submitProjectBtn = document.querySelector(".project-submit");
 submitProjectBtn.addEventListener("click", (e) => {
+    const title = document.querySelector("#project-title").value;
+    const description = document.querySelector("#project-description").value;
+    const colorCode = document.querySelector("#project-color").value;
     e.preventDefault();
-    projectList.addProject();
+    projectList.push(new Project(title, description, colorCode));
+    console.log(projectList.length);
+    renderProjectlist(projectList);
 });
 
 initRender();
