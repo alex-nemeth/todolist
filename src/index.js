@@ -63,6 +63,9 @@ let defaultTask = new Task(
 );
 defaultProject.addTask(defaultTask);
 
+let projectIndex = 0;
+let taskIndex = 0;
+
 function renderProjectlist() {
     const listOfProjects = document.querySelector(".project-list");
     listOfProjects.innerHTML = "";
@@ -86,12 +89,12 @@ function renderProjectlist() {
 
         projectCard.addEventListener("click", (e) => {
             renderTasklist(projectList[i]);
-            currentProject = projectList[i];
+            projectIndex = i;
         });
         projectEditBtn.addEventListener("click", (e) => {
             e.preventDefault();
             editProject(projectList[i]);
-            currentProjectIndex = i;
+            projectIndex = i;
         });
     }
 }
@@ -119,9 +122,9 @@ function renderTasklist(project) {
         }
         const taskCard = document.querySelector(`.task-card`);
         taskCard.addEventListener("click", (e) => {
+            taskIndex = taskCard.id;
             e.preventDefault();
-            editTask(project.tasks[i]);
-            currentTaskIndex = i;
+            editTask(project.tasks[taskIndex]);
         });
     }
 }
@@ -176,6 +179,7 @@ submitProjectBtn.addEventListener("click", (e) => {
     renderProjectlist();
     projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
+    projectIndex = projectList.length - 1;
 });
 
 const submitTaskBtn = document.querySelector(".task-submit");
@@ -185,11 +189,11 @@ submitTaskBtn.addEventListener("click", (e) => {
     const status = document.querySelector("#task-status").value;
     const colorCode = document.querySelector("#task-color").value;
     e.preventDefault();
-    projectList[currentProject].tasks.push(
+    projectList[projectIndex].tasks.push(
         new Task(title, description, status, colorCode)
     );
     taskModal.style.display = "none";
-    renderTasklist(projectList[currentProject]);
+    renderTasklist(projectList[projectIndex]);
 });
 
 const submitProjectEditBtn = document.querySelector(".project-submit-edit");
@@ -200,9 +204,9 @@ submitProjectEditBtn.addEventListener("click", (e) => {
     ).value;
     const colorCode = document.querySelector("#project-color-edit").value;
     e.preventDefault();
-    projectList[currentProjectIndex].title = title;
-    projectList[currentProjectIndex].description = description;
-    projectList[currentProjectIndex].colorCode = colorCode;
+    projectList[projectIndex].title = title;
+    projectList[projectIndex].description = description;
+    projectList[projectIndex].colorCode = colorCode;
     renderProjectlist();
     editProjectModal.style.display = "none";
 });
@@ -214,20 +218,19 @@ submitTaskEditBtn.addEventListener("click", (e) => {
     const status = document.querySelector("#task-status-edit").value;
     const colorCode = document.querySelector("#task-color-edit").value;
     e.preventDefault();
-    projectList[currentProject].tasks[currentTaskIndex].title = title;
-    projectList[currentProject].tasks[currentTaskIndex].description =
-        description;
-    projectList[currentProject].tasks[currentTaskIndex].status = status;
-    projectList[currentProject].tasks[currentTaskIndex].colorCode = colorCode;
-    renderTasklist(projectList[currentProject]);
+    projectList[projectIndex].tasks[taskIndex].title = title;
+    projectList[projectIndex].tasks[taskIndex].description = description;
+    projectList[projectIndex].tasks[taskIndex].status = status;
+    projectList[projectIndex].tasks[taskIndex].colorCode = colorCode;
+    renderTasklist(projectList[projectIndex]);
     editTaskModal.style.display = "none";
 });
 
 const deleteTaskBtn = document.querySelector(".task-delete");
 deleteTaskBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    projectList[currentProject].tasks.splice(currentTaskIndex, 1);
-    renderTasklist(projectList[currentProject]);
+    projectList[projectIndex].tasks.splice(taskIndex, 1);
+    renderTasklist(projectList[projectIndex]);
     editTaskModal.style.display = "none";
 });
 
@@ -237,7 +240,7 @@ function editProject(project) {
     document.querySelector("#project-description-edit").value =
         project.description;
     document.querySelector("#project-color-edit").selected = project.colorCode;
-    currentProject = project;
+    //currentProject = project;
 }
 
 function editTask(task) {
@@ -246,12 +249,7 @@ function editTask(task) {
     document.querySelector("#task-description-edit").value = task.description;
     document.querySelector("#task-status-edit").value = task.status;
     document.querySelector("#task-color-edit").selected = task.colorCode;
-    currentTask = task;
 }
 
 //webapp start
 initRender();
-let currentProject = 0;
-let currentTask = 0;
-let currentTaskIndex;
-let currentProjectIndex = 0;
