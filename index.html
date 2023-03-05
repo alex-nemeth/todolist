@@ -11,7 +11,6 @@
         <!--Project Modal-->
         <div id="project-modal" class="modal">
             <div class="modal-content">
-                <span class="close" id="project-close">&times;</span>
                 <h1>New project</h1>
                 <form id="new-project" action="">
                     <div class="text-input">
@@ -35,12 +34,12 @@
                     </div>
                     <button class="project-submit">Add project</button>
                 </form>
+                <span class="close" id="project-close">&times;</span>
             </div>
         </div>
         <!--PROJECT EDIT MODAL-->
         <div id="project-modal-edit" class="modal">
             <div class="modal-content">
-                <span class="close" id="project-edit-close">&times;</span>
                 <h1>Edit project</h1>
                 <form id="edit-project" action="">
                     <div class="text-input">
@@ -67,13 +66,13 @@
                         <button class="project-delete">Delete Task</button>
                     </div>
                 </form>
+                <span class="close" id="project-edit-close">&times;</span>
             </div>
         </div>
 
         <!--Task Modal-->
         <div id="task-modal" class="modal">
             <div class="modal-content">
-                <span class="close" id="task-close">&times;</span>
                 <h1>New task</h1>
                 <form id="new-task" action="">
                     <div class="text-input">
@@ -105,12 +104,12 @@
                     </div>
                     <button class="task-submit">Add task</button>
                 </form>
+                <span class="close" id="task-close">&times;</span>
             </div>
         </div>
         <!--Task Edit Modal-->
         <div id="task-modal-edit" class="modal">
             <div class="modal-content">
-                <span class="close" id="task-edit-close">&times;</span>
                 <h1>Edit task</h1>
                 <form id="edit-task" action="">
                     <div class="text-input">
@@ -145,6 +144,7 @@
                         <button class="task-delete">Delete Task</button>
                     </div>
                 </form>
+                <span class="close" id="task-edit-close">&times;</span>
             </div>
         </div>
 
@@ -157,7 +157,7 @@
         <!--Content-->
         <div class="content">
             <div class="sidebar">
-                <h4>Projects</h4>
+                <h4 class="sidebar-header">Projects</h4>
                 <div class="project-list"></div>
                 <button class="add-project">New Project</button>
             </div>

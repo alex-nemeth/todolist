@@ -33,10 +33,18 @@ h1 {
     margin-top: 0px;
 }
 
+h4 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 22px;
+    margin-left: 20px;
+}
+
 svg {
     width: 20px;
     height: 20px;
-    color: greenyellow;
+    fill: white;
 }
 
 .sidebar {
@@ -45,6 +53,12 @@ svg {
     background-color: #334155;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    padding-right: 20px;
+    height: auto;
+}
+
+.project-list {
+    height: max-content;
 }
 
 .project {
@@ -56,14 +70,35 @@ svg {
 .project-card {
     display: flex;
     width: 100%;
-    margin: 10px 5px;
+    margin: 10px 10px;
+    border-radius: 10px;
     align-items: center;
     justify-content: space-between;
+    background-color: #64748b;
 }
 
-.project-edit-icon {
-    fill: white;
-    padding-right: 10px;
+.project-card:hover {
+    background-color: #475569;
+}
+
+.project-title-sidebar {
+    margin-left: 10px;
+}
+
+.project-edit-btn {
+    display: flex;
+    background-color: transparent;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    border-radius: 10px;
+    height: 30px;
+    width: 30px;
+}
+
+.project-edit-btn:hover {
+    background-color: #334155;
 }
 
 .add-project {
@@ -71,8 +106,8 @@ svg {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: flex-end;
     align-self: center;
+    justify-self: center;
     margin-top: 30px;
     margin-bottom: 10px;
 }
@@ -100,11 +135,27 @@ svg {
 
 /* Modal Content/Box */
 .modal-content {
+    display: flex;
     background-color: rgb(39, 39, 39);
+    justify-content: space-evenly;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+.text-input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+}
+
+.color-input {
+    margin: 10px 20px;
+}
+
+.project-submit {
+    margin-left: 20px;
 }
 
 /* The Close Button */
@@ -134,6 +185,10 @@ svg {
     margin: 10px;
     border-radius: 10px;
     border: 3px solid #cbd5e1;
+}
+
+.task-card:hover {
+    background-color: #334155;
 }
 
 .add-task-container {
