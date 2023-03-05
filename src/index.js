@@ -47,31 +47,13 @@ class Project {
     }
 }
 
-let projectList = [];
-let defaultProject = new Project(
-    "Default Project",
-    "This is a default project",
-    "Blue"
-);
-projectList.push(defaultProject);
-
-let defaultTask = new Task(
-    "Default Task",
-    "This is a default task",
-    "To Do",
-    "red"
-);
-defaultProject.addTask(defaultTask);
-
-let projectIndex = 0;
-let taskIndex = 0;
-
 function renderProjectlist() {
     const listOfProjects = document.querySelector(".project-list");
     listOfProjects.innerHTML = "";
     for (let i = 0; i < projectList.length; i++) {
         const projectCard = document.createElement("div");
         projectCard.classList.add("project-card");
+        projectCard.classList.add(projectList[i].colorCode);
         listOfProjects.appendChild(projectCard);
         projectCard.value = i;
 
@@ -265,4 +247,21 @@ function editTask(task) {
 }
 
 //webapp start
+let projectIndex = 0;
+let taskIndex = 0;
+let projectList = [];
+let defaultProject = new Project(
+    "Default Project",
+    "This is a default project",
+    "blue"
+);
+let defaultTask = new Task(
+    "Default Task",
+    "This is a default task",
+    "To Do",
+    "red"
+);
+defaultProject.addTask(defaultTask);
+projectList.push(defaultProject);
+
 initRender();

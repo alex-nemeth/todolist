@@ -23,6 +23,7 @@ h1 {
     display: grid;
     grid-template-columns: 25% 75%;
     height: 75vh;
+    margin: 20px;
 }
 
 .header {
@@ -53,7 +54,7 @@ svg {
     background-color: #334155;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    padding-right: 20px;
+    padding-right: 30px;
     height: auto;
 }
 
@@ -136,12 +137,13 @@ svg {
 /* Modal Content/Box */
 .modal-content {
     display: flex;
-    background-color: rgb(39, 39, 39);
+    background-color: #334155;
     justify-content: space-evenly;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 50%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
 }
 
 .text-input {
