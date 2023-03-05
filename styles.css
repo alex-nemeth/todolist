@@ -33,9 +33,6 @@ h1 {
     margin-top: 0px;
 }
 
-.content {
-}
-
 svg {
     width: 20px;
     height: 20px;
@@ -139,4 +136,14 @@ svg {
 .class-categories {
     font-size: 16px;
     line-height: 50%;
+}
+
+.task-icons {
+    display: flex;
+    fill: white;
+    justify-content: flex-end;
+}
+
+.delete-task {
+    margin-left: 5px;
 }
