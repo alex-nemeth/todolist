@@ -81,18 +81,37 @@ function renderProjectlist() {
     }
 }
 
+function clearColors(element) {
+    if (element.classList.contains("color-red"))
+        element.classList.remove("color-red");
+    if (element.classList.contains("color-green"))
+        element.classList.remove("color-green");
+    if (element.classList.contains("color-blue"))
+        element.classList.remove("color-blue");
+    if (element.classList.contains("color-yellow"))
+        element.classList.remove("color-yellow");
+    if (element.classList.contains("color-orange"))
+        element.classList.remove("color-orange");
+    if (element.classList.contains("color-purple"))
+        element.classList.remove("color-purple");
+}
+
 function renderTasklist(project) {
     const projectTitle = document.querySelector(".tasks-title");
+    const projectDescription = document.querySelector(".tasks-description");
     const toDoTasks = document.querySelector(".to-do");
     const inProgressTasks = document.querySelector(".in-progress");
     const completedTasks = document.querySelector(".completed");
+    clearColors(projectTitle);
+    projectTitle.classList.add(`color-${project.colorCode}`);
     projectTitle.innerHTML = project.title;
+    projectDescription.innerHTML = project.description;
     toDoTasks.innerHTML = "";
     inProgressTasks.innerHTML = "";
     completedTasks.innerHTML = "";
     for (let i = 0; i < project.length(); i++) {
-        const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p>${project.tasks[i].title}</p>
-        <p>${project.tasks[i].description}</p>
+        const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p class="task-title">${project.tasks[i].title}</p>
+        <p class="task-description">${project.tasks[i].description}</p>
         </div>
         </div>`;
         if (project.tasks[i].status === "To Do") {
@@ -246,13 +265,16 @@ function editTask(task) {
     document.querySelector("#task-color-edit").selected = task.colorCode;
 }
 
-//webapp start
+////////////////
+//webapp start//
+////////////////
+
 let projectIndex = 0;
 let taskIndex = 0;
 let projectList = [];
 let defaultProject = new Project(
     "Default Project",
-    "This is a default project",
+    "This is the default's project description",
     "blue"
 );
 let defaultTask = new Task(
