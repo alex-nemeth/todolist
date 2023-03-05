@@ -91,9 +91,8 @@ function renderTasklist(project) {
     inProgressTasks.innerHTML = "";
     completedTasks.innerHTML = "";
     for (let i = 0; i < project.length(); i++) {
-        const taskToAdd = `<div class="task-card" id="${i}"><p>${project.tasks[i].title}</p>
+        const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p>${project.tasks[i].title}</p>
         <p>${project.tasks[i].description}</p>
-        <p>${project.tasks[i].colorCode}</p>
         </div>
         </div>`;
         if (project.tasks[i].status === "To Do") {
