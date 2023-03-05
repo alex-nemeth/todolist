@@ -70,17 +70,25 @@ function renderProjectlist() {
         const projectCard = document.createElement("div");
         projectCard.classList.add("project-card");
         listOfProjects.appendChild(projectCard);
-        projectCard.innerHTML = `
-        <div class="project-card" value="${i}">
-        <p class="project-title-clickable">${projectList[i].title}</p>
-        <svg class="project-edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle-edit-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12H20A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4V2M18.78,3C18.61,3 18.43,3.07 18.3,3.2L17.08,4.41L19.58,6.91L20.8,5.7C21.06,5.44 21.06,5 20.8,4.75L19.25,3.2C19.12,3.07 18.95,3 18.78,3M16.37,5.12L9,12.5V15H11.5L18.87,7.62L16.37,5.12Z" /></svg>
-    </div>`;
+        projectCard.value = i;
+
+        const projectTitle = document.createElement("p");
+        projectTitle.classList.add("project-title-sidebar");
+        projectTitle.innerHTML = projectList[i].title;
+        projectTitle.value = i;
+        projectCard.appendChild(projectTitle);
+
+        const projectEditBtn = document.createElement("button");
+        projectEditBtn.classList.add("project-edit-btn");
+        projectEditBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle-edit-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22`;
+        projectEditBtn.value = i;
+        projectCard.appendChild(projectEditBtn);
+
         projectCard.addEventListener("click", (e) => {
             renderTasklist(projectList[i]);
-            currentProject = i;
+            currentProject = projectList[i];
         });
-        const projectEditIcon = document.querySelector(`.project-edit-icon`);
-        projectEditIcon.addEventListener("click", (e) => {
+        projectEditBtn.addEventListener("click", (e) => {
             e.preventDefault();
             editProject(projectList[i]);
             currentProjectIndex = i;
@@ -168,7 +176,6 @@ submitProjectBtn.addEventListener("click", (e) => {
     renderProjectlist();
     projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
-    currentProject = projectList.length - 1;
 });
 
 const submitTaskBtn = document.querySelector(".task-submit");
@@ -229,7 +236,6 @@ function editProject(project) {
     document.querySelector("#project-title-edit").value = project.title;
     document.querySelector("#project-description-edit").value =
         project.description;
-    document.querySelector("#project-status-edit").value = project.status;
     document.querySelector("#project-color-edit").selected = project.colorCode;
     currentProject = project;
 }
