@@ -53,6 +53,19 @@ svg {
     align-items: center;
 }
 
+.project-card {
+    display: flex;
+    width: 100%;
+    margin: 10px 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-edit-icon {
+    fill: white;
+    padding-right: 10px;
+}
+
 .add-project {
     width: 60%;
     display: flex;
