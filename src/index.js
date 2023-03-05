@@ -58,7 +58,7 @@ projectList.push(defaultProject);
 let defaultTask = new Task(
     "Default Task",
     "This is a default task",
-    "In Progress",
+    "To Do",
     "red"
 );
 defaultProject.addTask(defaultTask);
@@ -120,13 +120,14 @@ function renderTasklist(project) {
         } else if (project.tasks[i].status === "Completed") {
             completedTasks.innerHTML += taskToAdd;
         }
-        const taskCard = document.querySelector(`.task-card`);
+    }
+    document.querySelectorAll(".task-card").forEach((taskCard) => {
         taskCard.addEventListener("click", (e) => {
             taskIndex = taskCard.id;
             e.preventDefault();
-            editTask(project.tasks[taskIndex]);
+            editTask(projectList[projectIndex].tasks[taskIndex]);
         });
-    }
+    });
 }
 
 function initRender() {
@@ -240,7 +241,6 @@ function editProject(project) {
     document.querySelector("#project-description-edit").value =
         project.description;
     document.querySelector("#project-color-edit").selected = project.colorCode;
-    //currentProject = project;
 }
 
 function editTask(task) {
