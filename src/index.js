@@ -82,9 +82,11 @@ function renderProjectlist() {
 }
 
 function renderTasklist(project) {
+    const projectTitle = document.querySelector(".tasks-title");
     const toDoTasks = document.querySelector(".to-do");
     const inProgressTasks = document.querySelector(".in-progress");
     const completedTasks = document.querySelector(".completed");
+    projectTitle.innerHTML = project.title;
     toDoTasks.innerHTML = "";
     inProgressTasks.innerHTML = "";
     completedTasks.innerHTML = "";
@@ -139,6 +141,7 @@ submitProjectBtn.addEventListener("click", (e) => {
     e.preventDefault();
     projectList.push(new Project(title, description, colorCode));
     renderProjectlist();
+    projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
 });
 
@@ -152,6 +155,7 @@ submitTaskBtn.addEventListener("click", (e) => {
     projectList[currentProject].tasks.push(
         new Task(title, description, status, colorCode)
     );
+    taskModal.style.display = "none";
     renderTasklist(projectList[currentProject]);
 });
 
