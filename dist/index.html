@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <!--Task Modal TBD-->
+        <!--Task Modal-->
         <div id="task-modal" class="modal">
             <div class="modal-content">
                 <span class="close" id="task-close">&times;</span>
@@ -68,6 +68,41 @@
                         </select>
                     </div>
                     <button class="task-submit">Add task</button>
+                </form>
+            </div>
+        </div>
+        <!--Task Edit Modal-->
+        <div id="task-modal-edit" class="modal">
+            <div class="modal-content">
+                <span class="close" id="task-edit-close">&times;</span>
+                <h1>Edit task</h1>
+                <form id="edit-task" action="">
+                    <div class="text-input">
+                        <label for="Title">Task title</label>
+                        <input id="task-title-edit" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Description">Description</label>
+                        <input id="task-description-edit" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Status">Status</label>
+                        <select id="task-status-edit" name="colors">
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="color-input">
+                        <label for="Colors">Color</label>
+                        <select id="task-color-edit" name="colors">
+                            <option value="Blue">Blue</option>
+                            <option value="Purple">Purple</option>
+                            <option value="Yellow">Yellow</option>
+                            <option value="Orange">Orange</option>
+                        </select>
+                    </div>
+                    <button class="task-submit-edit">Edit task</button>
                 </form>
             </div>
         </div>
