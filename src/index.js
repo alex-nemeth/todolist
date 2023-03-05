@@ -143,6 +143,7 @@ submitProjectBtn.addEventListener("click", (e) => {
     renderProjectlist();
     projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
+    currentProject = projectList.length - 1;
 });
 
 const submitTaskBtn = document.querySelector(".task-submit");
