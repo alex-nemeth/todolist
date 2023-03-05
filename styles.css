@@ -138,10 +138,28 @@ svg {
     line-height: 50%;
 }
 
-.task-icons {
-    display: flex;
-    fill: white;
-    justify-content: flex-end;
+.red {
+    border-left: solid 10px rgb(255, 26, 26);
+}
+
+.green {
+    border-left: solid 10px rgb(26, 255, 60);
+}
+
+.blue {
+    border-left: solid 10px rgb(25, 152, 255);
+}
+
+.yellow {
+    border-left: solid 10px rgb(255, 247, 27);
+}
+
+.purple {
+    border-left: solid 10px rgb(165, 48, 255);
+}
+
+.orange {
+    border-left: solid 10px rgb(255, 148, 25);
 }
 
 .delete-task {
