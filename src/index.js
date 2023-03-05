@@ -72,13 +72,18 @@ function renderProjectlist() {
         listOfProjects.appendChild(projectCard);
         projectCard.innerHTML = `
         <div class="project-card" value="${i}">
-        <p class="project-title">${projectList[i].title}</p>
+        <p class="project-title-clickable">${projectList[i].title}</p>
         <svg class="project-edit-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle-edit-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12H20A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4V2M18.78,3C18.61,3 18.43,3.07 18.3,3.2L17.08,4.41L19.58,6.91L20.8,5.7C21.06,5.44 21.06,5 20.8,4.75L19.25,3.2C19.12,3.07 18.95,3 18.78,3M16.37,5.12L9,12.5V15H11.5L18.87,7.62L16.37,5.12Z" /></svg>
-
     </div>`;
         projectCard.addEventListener("click", (e) => {
             renderTasklist(projectList[i]);
             currentProject = i;
+        });
+        const projectEditIcon = document.querySelector(`.project-edit-icon`);
+        projectEditIcon.addEventListener("click", (e) => {
+            e.preventDefault();
+            editProject(projectList[i]);
+            currentProjectIndex = i;
         });
     }
 }
@@ -119,12 +124,18 @@ function initRender() {
 }
 
 const projectModal = document.querySelector("#project-modal");
+const editProjectModal = document.querySelector("#project-modal-edit");
 const taskModal = document.querySelector("#task-modal");
 const editTaskModal = document.querySelector("#task-modal-edit");
 
 const projectCloseBtn = document.querySelector("#project-close");
 projectCloseBtn.addEventListener("click", () => {
     projectModal.style.display = "none";
+});
+
+const projectEditCloseBtn = document.querySelector("#project-edit-close");
+projectEditCloseBtn.addEventListener("click", () => {
+    editProjectModal.style.display = "none";
 });
 
 const taskCloseBtn = document.querySelector("#task-close");
@@ -174,6 +185,21 @@ submitTaskBtn.addEventListener("click", (e) => {
     renderTasklist(projectList[currentProject]);
 });
 
+const submitProjectEditBtn = document.querySelector(".project-submit-edit");
+submitProjectEditBtn.addEventListener("click", (e) => {
+    const title = document.querySelector("#project-title-edit").value;
+    const description = document.querySelector(
+        "#project-description-edit"
+    ).value;
+    const colorCode = document.querySelector("#project-color-edit").value;
+    e.preventDefault();
+    projectList[currentProjectIndex].title = title;
+    projectList[currentProjectIndex].description = description;
+    projectList[currentProjectIndex].colorCode = colorCode;
+    renderProjectlist();
+    editProjectModal.style.display = "none";
+});
+
 const submitTaskEditBtn = document.querySelector(".task-submit-edit");
 submitTaskEditBtn.addEventListener("click", (e) => {
     const title = document.querySelector("#task-title-edit").value;
@@ -198,6 +224,16 @@ deleteTaskBtn.addEventListener("click", (e) => {
     editTaskModal.style.display = "none";
 });
 
+function editProject(project) {
+    editProjectModal.style.display = "block";
+    document.querySelector("#project-title-edit").value = project.title;
+    document.querySelector("#project-description-edit").value =
+        project.description;
+    document.querySelector("#project-status-edit").value = project.status;
+    document.querySelector("#project-color-edit").selected = project.colorCode;
+    currentProject = project;
+}
+
 function editTask(task) {
     editTaskModal.style.display = "block";
     document.querySelector("#task-title-edit").value = task.title;
@@ -212,3 +248,4 @@ initRender();
 let currentProject = 0;
 let currentTask = 0;
 let currentTaskIndex;
+let currentProjectIndex = 0;

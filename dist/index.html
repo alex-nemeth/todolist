@@ -37,6 +37,38 @@
                 </form>
             </div>
         </div>
+        <!--PROJECT EDIT MODAL-->
+        <div id="project-modal-edit" class="modal">
+            <div class="modal-content">
+                <span class="close" id="project-edit-close">&times;</span>
+                <h1>Edit project</h1>
+                <form id="edit-project" action="">
+                    <div class="text-input">
+                        <label for="Title">Task title</label>
+                        <input id="project-title-edit" type="text" />
+                    </div>
+                    <div class="text-input">
+                        <label for="Description">Description</label>
+                        <input id="project-description-edit" type="text" />
+                    </div>
+                    <div class="color-input">
+                        <label for="Colors">Color</label>
+                        <select id="project-color-edit" name="colors">
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="purple">Purple</option>
+                            <option value="orange">Orange</option>
+                        </select>
+                    </div>
+                    <div class="edit-project-buttons">
+                        <button class="project-submit-edit">Edit task</button>
+                        <button class="project-delete">Delete Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <!--Task Modal-->
         <div id="task-modal" class="modal">
