@@ -227,6 +227,19 @@ submitTaskEditBtn.addEventListener("click", (e) => {
     editTaskModal.style.display = "none";
 });
 
+const deleteProjectBtn = document.querySelector(".project-delete");
+deleteProjectBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    projectList.splice(projectIndex, 1);
+    renderProjectlist();
+    editProjectModal.style.display = "none";
+    if (projectList.length > 0) {
+        renderTasklist(projectList[projectList.length - 1]);
+    } else {
+        projectModal.style.display = "block";
+    }
+});
+
 const deleteTaskBtn = document.querySelector(".task-delete");
 deleteTaskBtn.addEventListener("click", (e) => {
     e.preventDefault();
