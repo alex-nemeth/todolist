@@ -18,6 +18,12 @@ h3 {
 
 .greeting {
     margin-top: 0px;
+    font-size: 20px;
+}
+
+.greeting:hover {
+    color: #94a3b8;
+    cursor: pointer;
 }
 
 .content {
@@ -85,6 +91,7 @@ svg {
 
 .project-card:hover {
     background-color: #475569;
+    cursor: pointer;
 }
 
 .project-title-sidebar {
@@ -105,6 +112,7 @@ svg {
 
 .project-edit-btn:hover {
     background-color: #334155;
+    cursor: pointer;
 }
 
 .add-project {
@@ -205,6 +213,7 @@ svg {
 
 .task-card:hover {
     background-color: #334155;
+    cursor: pointer;
 }
 
 .add-task-container {
