@@ -75,7 +75,7 @@
                             <option value="orange">Orange</option>
                         </select>
                     </div>
-                    <div class="edit-project-buttons">
+                    <div class="edit-buttons">
                         <button class="project-submit-edit">
                             Confirm Changes
                         </button>
@@ -154,7 +154,7 @@
                             <option value="orange">Orange</option>
                         </select>
                     </div>
-                    <div class="edit-task-buttons">
+                    <div class="edit-buttons">
                         <button class="task-submit-edit">
                             Confirm Changes
                         </button>
@@ -174,14 +174,25 @@
         <!--Content-->
         <div class="content">
             <div class="sidebar">
-                <h4 class="sidebar-header">Projects</h4>
+                <div class="sidebar-hdr">
+                    <h4 class="sidebar-header">Projects</h4>
+                    <div class="add-project-container">
+                        <button class="add-project">New</button>
+                    </div>
+                </div>
                 <div class="project-list"></div>
-                <button class="add-project">New Project</button>
             </div>
 
             <div class="current-project">
-                <h1 class="tasks-title"></h1>
-                <h3 class="tasks-description"></h3>
+                <div class="subheader">
+                    <div class="titles">
+                        <h1 class="tasks-title"></h1>
+                        <h3 class="tasks-description"></h3>
+                    </div>
+                    <div class="add-task-container">
+                        <button class="add-task">New Task</button>
+                    </div>
+                </div>
                 <div class="headings">
                     <h2>To-do</h2>
                     <h2>In Progress</h2>
@@ -191,9 +202,6 @@
                     <div class="to-do"></div>
                     <div class="in-progress"></div>
                     <div class="completed"></div>
-                </div>
-                <div class="add-task-container">
-                    <button class="add-task">New Task</button>
                 </div>
             </div>
         </div>
