@@ -1,141 +1,8 @@
-class Task {
-    constructor(title, description, status, colorCode) {
-        this.title = title;
-        this.description = description;
-        this.status = status;
-        this.colorCode = colorCode;
-    }
+//Class Imports
+import Project from "./classes/project";
+import Task from "./classes/task";
 
-    getTitle() {
-        return this.title;
-    }
-    getDescription() {
-        return this.description;
-    }
-
-    getColorCode() {
-        return this.colorCode;
-    }
-}
-
-class Project {
-    constructor(title, description, colorCode) {
-        this.title = title;
-        this.description = description;
-        this.tasks = [];
-        this.colorCode = colorCode;
-    }
-
-    addTask(title, description, status, colorCode) {
-        this.tasks.push(new Task(title, description, status, colorCode));
-    }
-
-    addTask(task) {
-        this.tasks.push(task);
-    }
-
-    length() {
-        return this.tasks.length;
-    }
-
-    deleteTask(index) {
-        this.tasks.splice(index, 1);
-    }
-
-    getTasks() {
-        return this.tasks;
-    }
-}
-
-function renderProjectlist() {
-    const listOfProjects = document.querySelector(".project-list");
-    listOfProjects.innerHTML = "";
-    for (let i = 0; i < projectList.length; i++) {
-        const projectCard = document.createElement("div");
-        projectCard.classList.add("project-card");
-        projectCard.classList.add(projectList[i].colorCode);
-        listOfProjects.appendChild(projectCard);
-        projectCard.value = i;
-
-        const projectTitle = document.createElement("p");
-        projectTitle.classList.add("project-title-sidebar");
-        projectTitle.innerHTML = projectList[i].title;
-        projectTitle.value = i;
-        projectCard.appendChild(projectTitle);
-
-        const projectEditBtn = document.createElement("button");
-        projectEditBtn.classList.add("project-edit-btn");
-        projectEditBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle-edit-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12H20A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4V2M18.78,3C18.61,3 18.43,3.07 18.3,3.2L17.08,4.41L19.58,6.91L20.8,5.7C21.06,5.44 21.06,5 20.8,4.75L19.25,3.2C19.12,3.07 18.95,3 18.78,3M16.37,5.12L9,12.5V15H11.5L18.87,7.62L16.37,5.12Z" /></svg>`;
-        projectEditBtn.value = i;
-        projectCard.appendChild(projectEditBtn);
-
-        projectCard.addEventListener("click", (e) => {
-            renderTasklist(projectList[i]);
-            projectIndex = i;
-        });
-        projectEditBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            editProject(projectList[i]);
-            projectIndex = i;
-        });
-    }
-}
-
-function clearColors(element) {
-    if (element.classList.contains("color-red"))
-        element.classList.remove("color-red");
-    if (element.classList.contains("color-green"))
-        element.classList.remove("color-green");
-    if (element.classList.contains("color-blue"))
-        element.classList.remove("color-blue");
-    if (element.classList.contains("color-yellow"))
-        element.classList.remove("color-yellow");
-    if (element.classList.contains("color-orange"))
-        element.classList.remove("color-orange");
-    if (element.classList.contains("color-purple"))
-        element.classList.remove("color-purple");
-}
-
-function renderTasklist(project) {
-    const projectTitle = document.querySelector(".tasks-title");
-    const projectDescription = document.querySelector(".tasks-description");
-    const toDoTasks = document.querySelector(".to-do");
-    const inProgressTasks = document.querySelector(".in-progress");
-    const completedTasks = document.querySelector(".completed");
-    clearColors(projectTitle);
-    projectTitle.classList.add(`color-${project.colorCode}`);
-    projectTitle.innerHTML = project.title;
-    projectDescription.innerHTML = project.description;
-    toDoTasks.innerHTML = "";
-    inProgressTasks.innerHTML = "";
-    completedTasks.innerHTML = "";
-    for (let i = 0; i < project.length(); i++) {
-        const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p class="task-title">${project.tasks[i].title}</p>
-        <p class="task-description">${project.tasks[i].description}</p>
-        </div>
-        </div>`;
-        if (project.tasks[i].status === "To Do") {
-            toDoTasks.innerHTML += taskToAdd;
-        } else if (project.tasks[i].status === "In Progress") {
-            inProgressTasks.innerHTML += taskToAdd;
-        } else if (project.tasks[i].status === "Completed") {
-            completedTasks.innerHTML += taskToAdd;
-        }
-    }
-    document.querySelectorAll(".task-card").forEach((taskCard) => {
-        taskCard.addEventListener("click", (e) => {
-            taskIndex = taskCard.id;
-            e.preventDefault();
-            editTask(projectList[projectIndex].tasks[taskIndex]);
-        });
-    });
-}
-
-function initRender() {
-    renderProjectlist(projectList);
-    renderTasklist(defaultProject);
-}
-
+//Event Listeners
 const projectModal = document.querySelector("#project-modal");
 const editProjectModal = document.querySelector("#project-modal-edit");
 const taskModal = document.querySelector("#task-modal");
@@ -210,6 +77,7 @@ submitProjectEditBtn.addEventListener("click", (e) => {
     projectList[projectIndex].description = description;
     projectList[projectIndex].colorCode = colorCode;
     renderProjectlist();
+    renderTasklist(projectList[projectIndex]);
     editProjectModal.style.display = "none";
 });
 
@@ -249,6 +117,76 @@ deleteTaskBtn.addEventListener("click", (e) => {
     editTaskModal.style.display = "none";
 });
 
+//Functions
+function renderProjectlist() {
+    const listOfProjects = document.querySelector(".project-list");
+    listOfProjects.innerHTML = "";
+    for (let i = 0; i < projectList.length; i++) {
+        const projectCard = document.createElement("div");
+        projectCard.classList.add("project-card");
+        projectCard.classList.add(projectList[i].colorCode);
+        listOfProjects.appendChild(projectCard);
+        projectCard.value = i;
+
+        const projectTitle = document.createElement("p");
+        projectTitle.classList.add("project-title-sidebar");
+        projectTitle.innerHTML = projectList[i].title;
+        projectTitle.value = i;
+        projectCard.appendChild(projectTitle);
+
+        const projectEditBtn = document.createElement("button");
+        projectEditBtn.classList.add("project-edit-btn");
+        projectEditBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>circle-edit-outline</title><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12H20A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4V2M18.78,3C18.61,3 18.43,3.07 18.3,3.2L17.08,4.41L19.58,6.91L20.8,5.7C21.06,5.44 21.06,5 20.8,4.75L19.25,3.2C19.12,3.07 18.95,3 18.78,3M16.37,5.12L9,12.5V15H11.5L18.87,7.62L16.37,5.12Z" /></svg>`;
+        projectEditBtn.value = i;
+        projectCard.appendChild(projectEditBtn);
+
+        projectCard.addEventListener("click", (e) => {
+            renderTasklist(projectList[i]);
+            projectIndex = i;
+        });
+        projectEditBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            editProject(projectList[i]);
+            projectIndex = i;
+        });
+    }
+}
+
+function renderTasklist(project) {
+    const projectTitle = document.querySelector(".tasks-title");
+    const projectDescription = document.querySelector(".tasks-description");
+    const toDoTasks = document.querySelector(".to-do");
+    const inProgressTasks = document.querySelector(".in-progress");
+    const completedTasks = document.querySelector(".completed");
+    clearColors(projectTitle);
+    projectTitle.classList.add(`color-${project.colorCode}`);
+    projectTitle.innerHTML = project.title;
+    projectDescription.innerHTML = project.description;
+    toDoTasks.innerHTML = "";
+    inProgressTasks.innerHTML = "";
+    completedTasks.innerHTML = "";
+    for (let i = 0; i < project.length(); i++) {
+        const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p class="task-title">${project.tasks[i].title}</p>
+        <p class="task-description">${project.tasks[i].description}</p>
+        </div>
+        </div>`;
+        if (project.tasks[i].status === "To Do") {
+            toDoTasks.innerHTML += taskToAdd;
+        } else if (project.tasks[i].status === "In Progress") {
+            inProgressTasks.innerHTML += taskToAdd;
+        } else if (project.tasks[i].status === "Completed") {
+            completedTasks.innerHTML += taskToAdd;
+        }
+    }
+    document.querySelectorAll(".task-card").forEach((taskCard) => {
+        taskCard.addEventListener("click", (e) => {
+            taskIndex = taskCard.id;
+            e.preventDefault();
+            editTask(projectList[projectIndex].tasks[taskIndex]);
+        });
+    });
+}
+
 function editProject(project) {
     editProjectModal.style.display = "block";
     document.querySelector("#project-title-edit").value = project.title;
@@ -265,16 +203,33 @@ function editTask(task) {
     document.querySelector("#task-color-edit").selected = task.colorCode;
 }
 
-////////////////
-//webapp start//
-////////////////
+function clearColors(element) {
+    if (element.classList.contains("color-red"))
+        element.classList.remove("color-red");
+    if (element.classList.contains("color-green"))
+        element.classList.remove("color-green");
+    if (element.classList.contains("color-blue"))
+        element.classList.remove("color-blue");
+    if (element.classList.contains("color-yellow"))
+        element.classList.remove("color-yellow");
+    if (element.classList.contains("color-orange"))
+        element.classList.remove("color-orange");
+    if (element.classList.contains("color-purple"))
+        element.classList.remove("color-purple");
+}
 
+function init() {
+    renderProjectlist(projectList);
+    renderTasklist(defaultProject);
+}
+
+//Global & Default Variables
 let projectIndex = 0;
 let taskIndex = 0;
 let projectList = [];
 let defaultProject = new Project(
     "Default Project",
-    "This is the default's project description",
+    "This is the default project description",
     "blue"
 );
 let defaultTask = new Task(
@@ -286,4 +241,5 @@ let defaultTask = new Task(
 defaultProject.addTask(defaultTask);
 projectList.push(defaultProject);
 
-initRender();
+// Webapp Initialization
+init();
