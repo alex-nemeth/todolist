@@ -49,6 +49,7 @@ submitProjectBtn.addEventListener("click", (e) => {
     projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
     projectIndex = projectList.length - 1;
+    saveLocalStorage();
 });
 
 const submitTaskBtn = document.querySelector(".task-submit");
@@ -63,6 +64,7 @@ submitTaskBtn.addEventListener("click", (e) => {
     );
     taskModal.style.display = "none";
     renderTasklist(projectList[projectIndex]);
+    saveLocalStorage();
 });
 
 const submitProjectEditBtn = document.querySelector(".project-submit-edit");
@@ -79,6 +81,7 @@ submitProjectEditBtn.addEventListener("click", (e) => {
     renderProjectlist();
     renderTasklist(projectList[projectIndex]);
     editProjectModal.style.display = "none";
+    saveLocalStorage();
 });
 
 const submitTaskEditBtn = document.querySelector(".task-submit-edit");
@@ -93,6 +96,7 @@ submitTaskEditBtn.addEventListener("click", (e) => {
     projectList[projectIndex].tasks[taskIndex].status = status;
     projectList[projectIndex].tasks[taskIndex].colorCode = colorCode;
     renderTasklist(projectList[projectIndex]);
+    saveLocalStorage();
     editTaskModal.style.display = "none";
 });
 
@@ -165,7 +169,7 @@ function renderTasklist(project) {
     toDoTasks.innerHTML = "";
     inProgressTasks.innerHTML = "";
     completedTasks.innerHTML = "";
-    for (let i = 0; i < project.length(); i++) {
+    for (let i = 0; i < project.tasks.length; i++) {
         const taskToAdd = `<div class="task-card ${project.tasks[i].colorCode}" id="${i}"><p class="task-title">${project.tasks[i].title}</p>
         <p class="task-description">${project.tasks[i].description}</p>
         </div>
@@ -227,19 +231,37 @@ function init() {
 let projectIndex = 0;
 let taskIndex = 0;
 let projectList = [];
-let defaultProject = new Project(
-    "Default Project",
-    "This is the default project description",
-    "blue"
-);
-let defaultTask = new Task(
-    "Default Task",
-    "This is a default task",
-    "To Do",
-    "red"
-);
-defaultProject.addTask(defaultTask);
-projectList.push(defaultProject);
 
-// Webapp Initialization
-init();
+//Webapp Initialization
+// Init Default Variables if localStorage is empty
+if (localStorage.getItem("projectList") === null) {
+    let defaultProject = new Project(
+        "Default Project",
+        "This is the default project description",
+        "blue"
+    );
+    let defaultTask = new Task(
+        "Default Task",
+        "This is a default task",
+        "To Do",
+        "red"
+    );
+
+    defaultProject.addTask(defaultTask);
+    projectList.push(defaultProject);
+    init();
+}
+//Else if localStorage isn't empty, load the projectList from localStorage
+else {
+    loadLocalStorage();
+    renderProjectlist();
+    renderTasklist(projectList[projectList.length - 1]);
+}
+
+function saveLocalStorage() {
+    localStorage.setItem("projectList", JSON.stringify(projectList));
+}
+
+function loadLocalStorage() {
+    projectList = JSON.parse(localStorage.getItem("projectList"));
+}
