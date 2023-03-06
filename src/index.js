@@ -7,8 +7,37 @@ const projectModal = document.querySelector("#project-modal");
 const editProjectModal = document.querySelector("#project-modal-edit");
 const taskModal = document.querySelector("#task-modal");
 const editTaskModal = document.querySelector("#task-modal-edit");
+const nameModal = document.querySelector("#set-name-modal");
 
 // Buttons & Event Listeners
+const greetingText = document.querySelector(".greeting");
+greetingText.addEventListener("click", (e) => {
+    e.preventDefault();
+    nameModal.style.display = "block";
+});
+
+const nameModalCloseBtn = document.querySelector("#name-close");
+nameModalCloseBtn.addEventListener("click", () => {
+    nameModal.style.display = "none";
+});
+
+const nameModalSubmitBtn = document.querySelector(".set-name");
+nameModalSubmitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const newName = document.querySelector("#user-name").value;
+    if (newName === "") {
+        greetingText.innerHTML = `Welcome back.`;
+        localStorage.setItem("userName", "");
+        nameModal.style.display = "none";
+    } else {
+        greetingText.innerHTML = `Welcome back, ${newName}.`;
+        nameModal.style.display = "none";
+        userName = newName;
+        localStorage.setItem("userName", userName);
+    }
+    renderTasklist(projectList[projectIndex]);
+});
+
 const projectCloseBtn = document.querySelector("#project-close");
 projectCloseBtn.addEventListener("click", () => {
     projectModal.style.display = "none";
@@ -50,7 +79,6 @@ submitProjectBtn.addEventListener("click", (e) => {
     projectModal.style.display = "none";
     renderTasklist(projectList[projectList.length - 1]);
     projectIndex = projectList.length - 1;
-    saveLocalStorage();
 });
 
 const submitTaskBtn = document.querySelector(".task-submit");
@@ -65,7 +93,6 @@ submitTaskBtn.addEventListener("click", (e) => {
     );
     taskModal.style.display = "none";
     renderTasklist(projectList[projectIndex]);
-    saveLocalStorage();
 });
 
 const submitProjectEditBtn = document.querySelector(".project-submit-edit");
@@ -82,7 +109,6 @@ submitProjectEditBtn.addEventListener("click", (e) => {
     renderProjectlist();
     renderTasklist(projectList[projectIndex]);
     editProjectModal.style.display = "none";
-    saveLocalStorage();
 });
 
 const submitTaskEditBtn = document.querySelector(".task-submit-edit");
@@ -97,7 +123,6 @@ submitTaskEditBtn.addEventListener("click", (e) => {
     projectList[projectIndex].tasks[taskIndex].status = status;
     projectList[projectIndex].tasks[taskIndex].colorCode = colorCode;
     renderTasklist(projectList[projectIndex]);
-    saveLocalStorage();
     editTaskModal.style.display = "none";
 });
 
@@ -161,6 +186,7 @@ function renderProjectlist() {
             projectIndex = i;
         });
     }
+    saveLocalStorage();
 }
 
 function renderTasklist(project) {
@@ -196,6 +222,7 @@ function renderTasklist(project) {
             editTask(projectList[projectIndex].tasks[taskIndex]);
         });
     });
+    saveLocalStorage();
 }
 
 // Editing functions
@@ -238,12 +265,19 @@ function saveLocalStorage() {
 
 function loadLocalStorage() {
     projectList = JSON.parse(localStorage.getItem("projectList"));
+    userName = localStorage.getItem("userName");
+    if (userName === null || userName === undefined || userName === "") {
+        greetingText.innerHTML = `Welcome back.`;
+    } else {
+        greetingText.innerHTML = `Welcome back, ${userName}.`;
+    }
 }
 
 // Global & Default Variables
 let projectIndex = 0;
 let taskIndex = 0;
 let projectList = [];
+let userName = "";
 
 // Webapp Initialization
 // If localStorage is empty, load default variables & Run init render
@@ -263,6 +297,9 @@ if (localStorage.getItem("projectList") === null) {
 
     defaultProject.addTask(defaultTask);
     projectList.push(defaultProject);
+    greetingText.innerHTML = `Welcome!`;
+    nameModal.style.display = "block";
+
     init();
 } else {
     loadLocalStorage();
