@@ -1,13 +1,14 @@
-//Class Imports
+// Class Imports
 import Project from "./classes/project";
 import Task from "./classes/task";
 
-//Event Listeners
+// Modal Windows
 const projectModal = document.querySelector("#project-modal");
 const editProjectModal = document.querySelector("#project-modal-edit");
 const taskModal = document.querySelector("#task-modal");
 const editTaskModal = document.querySelector("#task-modal-edit");
 
+// Buttons & Event Listeners
 const projectCloseBtn = document.querySelector("#project-close");
 projectCloseBtn.addEventListener("click", () => {
     projectModal.style.display = "none";
@@ -121,7 +122,13 @@ deleteTaskBtn.addEventListener("click", (e) => {
     editTaskModal.style.display = "none";
 });
 
-//Functions
+// Functions
+// Render functions
+// Init render into the default project
+function init() {
+    renderProjectlist(projectList);
+    renderTasklist(defaultProject);
+}
 function renderProjectlist() {
     const listOfProjects = document.querySelector(".project-list");
     listOfProjects.innerHTML = "";
@@ -191,6 +198,7 @@ function renderTasklist(project) {
     });
 }
 
+// Editing functions
 function editProject(project) {
     editProjectModal.style.display = "block";
     document.querySelector("#project-title-edit").value = project.title;
@@ -207,6 +215,7 @@ function editTask(task) {
     document.querySelector("#task-color-edit").selected = task.colorCode;
 }
 
+// Project title color setting helper function
 function clearColors(element) {
     if (element.classList.contains("color-red"))
         element.classList.remove("color-red");
@@ -222,18 +231,23 @@ function clearColors(element) {
         element.classList.remove("color-purple");
 }
 
-function init() {
-    renderProjectlist(projectList);
-    renderTasklist(defaultProject);
+// Local Storage functions
+function saveLocalStorage() {
+    localStorage.setItem("projectList", JSON.stringify(projectList));
 }
 
-//Global & Default Variables
+function loadLocalStorage() {
+    projectList = JSON.parse(localStorage.getItem("projectList"));
+}
+
+// Global & Default Variables
 let projectIndex = 0;
 let taskIndex = 0;
 let projectList = [];
 
-//Webapp Initialization
-// Init Default Variables if localStorage is empty
+// Webapp Initialization
+// If localStorage is empty, load default variables & Run init render
+// Else load Local Storage & Render
 if (localStorage.getItem("projectList") === null) {
     let defaultProject = new Project(
         "Default Project",
@@ -250,18 +264,8 @@ if (localStorage.getItem("projectList") === null) {
     defaultProject.addTask(defaultTask);
     projectList.push(defaultProject);
     init();
-}
-//Else if localStorage isn't empty, load the projectList from localStorage
-else {
+} else {
     loadLocalStorage();
     renderProjectlist();
-    renderTasklist(projectList[projectList.length - 1]);
-}
-
-function saveLocalStorage() {
-    localStorage.setItem("projectList", JSON.stringify(projectList));
-}
-
-function loadLocalStorage() {
-    projectList = JSON.parse(localStorage.getItem("projectList"));
+    renderTasklist(projectList[projectIndex]);
 }
